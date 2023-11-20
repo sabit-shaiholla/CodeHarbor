@@ -194,3 +194,6 @@ log/
 bin/
 /bin1/
 java/build/**
+
+# JPB settings
+.jpb/
