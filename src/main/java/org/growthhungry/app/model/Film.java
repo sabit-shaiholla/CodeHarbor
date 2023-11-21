@@ -11,6 +11,16 @@ import java.util.List;
 @Entity
 @Table(name = "film", schema = "sakila")
 public class Film {
+
+    public Film() {
+    }
+
+    public Film(short filmId, String title, short length){
+        this.filmId = filmId;
+        this.title = title;
+        this.length = length;
+    }
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "film_id")
@@ -22,7 +32,7 @@ public class Film {
     @Column(name = "description")
     private String description;
     @Basic
-    @Column(name = "release_year")
+    @Column(name = "release_year", columnDefinition = "year")
     private Object releaseYear;
     @Basic
     @Column(name = "language_id")
