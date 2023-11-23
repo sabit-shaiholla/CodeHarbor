@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 @Entity
@@ -45,7 +44,7 @@ public class Film {
     private short rentalDuration;
     @Basic
     @Column(name = "rental_rate")
-    private BigDecimal rentalRate;
+    private Float rentalRate;
     @Basic
     @Column(name = "length")
     private Short length;
@@ -125,11 +124,11 @@ public class Film {
         this.rentalDuration = rentalDuration;
     }
 
-    public BigDecimal getRentalRate() {
+    public Float getRentalRate() {
         return rentalRate;
     }
 
-    public void setRentalRate(BigDecimal rentalRate) {
+    public void setRentalRate(Float rentalRate) {
         this.rentalRate = rentalRate;
     }
 
