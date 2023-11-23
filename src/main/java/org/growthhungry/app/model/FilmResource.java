@@ -2,6 +2,7 @@ package org.growthhungry.app.model;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
@@ -52,6 +53,16 @@ public class FilmResource {
                         f.getActors().stream()
                                 .map(a -> String.format("%s %s", a.getFirstName(), a.getLastName()))
                                 .collect(Collectors.joining(", "))))
+                .collect(Collectors.joining("\n"));
+    }
+
+    @POST
+    @Path("/update/{minLength}/{rentalRate}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String updateRentalRate(short minLength, Float rentalRate) {
+        filmRepository.updateRentalRate(minLength, rentalRate);
+        return filmRepository.getFilms(minLength)
+                .map(f -> String.format("%s (%d min) - $%f", f.getTitle(), f.getLength(), f.getRentalRate()))
                 .collect(Collectors.joining("\n"));
     }
 }
