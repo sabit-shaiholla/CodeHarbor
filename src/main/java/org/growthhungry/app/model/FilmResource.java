@@ -65,4 +65,13 @@ public class FilmResource {
                 .map(f -> String.format("%s (%d min) - $%f", f.getTitle(), f.getLength(), f.getRentalRate()))
                 .collect(Collectors.joining("\n"));
     }
+
+    @GET
+    @Path("/filmRating/{filmId}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getFilmRating(short filmId) {
+        return filmRepository.getFilmRating(filmId)
+                .map(fr -> String.format("Rating - %d", fr.getStars()))
+                .collect(Collectors.joining("\n"));
+    }
 }
