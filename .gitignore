@@ -196,4 +196,4 @@ bin/
 java/build/**
 
 # JPB settings
-.jpb/
+java-app/.jpb/
