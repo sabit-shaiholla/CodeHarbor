@@ -182,6 +182,7 @@ hs_err_pid*
 
 # Mac
 .DS_Store
+.locale-peer-id
 
 # Maven
 log/
