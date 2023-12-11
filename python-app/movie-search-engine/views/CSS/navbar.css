@@ -1,0 +1,54 @@
+.nav-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+    height: 80px;
+    margin: 0px 50px;
+}
+
+.nav a {
+    color: var(--text-color);
+}
+
+.nav-menu {
+    list-style-type: none;
+    display: flex;
+    padding: 0 20px;
+}
+
+.nav-menu li ~ li {
+    margin-left: 30px;
+    align-items: center;
+}
+
+
+.nav-menu a:hover {
+    color: var(--main-color);
+}
+
+button{
+    background-color: #000;
+    border: none;
+}
+button:hover, button:focus {
+    outline: none;
+}
+.nav-menu a.btn:hover,
+a.logo:hover,
+a.movie-item:hover {
+    color: unset;
+}
+
+ul {
+    margin-top: 0;
+    margin-bottom: 0;
+}
