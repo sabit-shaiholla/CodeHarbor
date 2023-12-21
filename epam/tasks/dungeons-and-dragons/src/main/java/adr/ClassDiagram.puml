@@ -1,0 +1,117 @@
+@startuml
+
+interface Fightable {
+    +attack()
+    +defend()
+    +isAlive(): boolean
+    +getHealth(): int
+    +getAttack(): int
+    +getDefense(): int
+}
+
+interface SpellCaster {
+    +castSpell(target: Creature)
+}
+
+abstract class Item {
+    -name: String
+    -description: String
+    -weight: double
+    +{abstract}use()
+}
+
+class Consumable {
+    -effect: String
+    +use()
+}
+
+class Weapon {
+    -damagePoints: int
+    -weaponName: String
+    -description: String
+    -weight: double
+    +use()
+}
+
+class Armor {
+    -defensePoints: int
+    -armorName: String
+    -description: String
+    -weight: double
+    +use()
+}
+
+class Character {
+    -name: String
+    -healthPoints: int
+    -level: int
+    -experiencePoints: int
+    -characterClass: CharacterClass
+    -inventory: List<Item>
+    +levelUp()
+    +gainExperience()
+    +equip(item: Item)
+    +attack()
+    +defend()
+    +isAlive(): boolean
+    +getHealth(): int
+    +getAttack(): int
+    +getDefense(): int
+    +castSpell(target: Creature)
+    +learnSpell(spell: Spell)
+}
+
+enum CharacterClass {
+    WARRIOR
+    MAGE
+    ROGUE
+    CLERIC
+}
+
+class Creature {
+    -creatureName: String
+    -healthPoints: int
+    -attackPoints: int
+    -defensePoints: int
+    -inventory: List<Item>
+    +attack()
+    +defend()
+    +isAlive(): boolean
+    +getHealth(): int
+    +getAttack(): int
+    +getDefense(): int
+}
+
+class Player {
+    -character: Character
+    -inventory: List<Item>
+    +equip(item: Item)
+    +engageInCombat(target: Creature)
+    +useConsumable(consumable: Consumable)
+    +usePotion()
+    +learnSpell(spell: Spell)
+    +castSpell(target: Creature)
+    +getCharacter(): Character
+}
+
+class Spell {
+    -spellName: String
+    -description: String
+    -damagePoints: int
+    +cast(target: Creature)
+}
+
+Fightable <|.. Character
+Fightable <|.. Creature
+SpellCaster <|.. Character
+Item <|.. Consumable
+Item <|.. Weapon
+Item <|.. Armor
+CharacterClass o-- Character
+Character *-- Spell : learns
+Character *-- SpellCaster : implements
+Character *-- Item : has
+Creature *-- Item : has
+Player o-- Character
+
+@enduml
