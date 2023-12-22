@@ -1,0 +1,6 @@
+spotipy
+pandas
+seaborn
+numpy
+matplotlib
+python-dotenv
