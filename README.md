@@ -1,7 +1,7 @@
 # CodeHarbor Project
 
 ## Introduction
-Welcome to the Project Name repository! 
+Welcome to the CodeHarbor repository! 
 This repository contains code and resources related to various tasks and applications developed by our team. Whether you're interested in data analytics, Java development, Python development, or architectural decision records (ADRs), you'll find something useful here.
 
 ## Project Structure
@@ -24,7 +24,7 @@ The repository is organized into the following directories:
 To use this repository, simply clone it to your local machine using Git. From there, you can explore the different directories, access code, and contribute as needed.
 
 ## Contributing
-We welcome contributions from the community! If you'd like to contribute to this project, please follow these steps:
+I welcome contributions from the community! If you'd like to contribute to this project, please follow these steps:
 1. Fork the repository.
 2. Create a new branch for your feature or bug fix (`git checkout -b feature/your-feature`).
 3. Make your changes.
