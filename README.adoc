@@ -1,6 +1,0 @@
-= 31github
-
-This repository contains the source code for the 31github challenge.
-
-== Challenge
-Each day to provide incremental value to the community, I will be pushing a new commit to this repository. The commit will contain a new feature, bug fix, or documentation update. The goal is to have at least 1 commit per day by the end of the month.
