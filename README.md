@@ -6,6 +6,7 @@ This repository contains code and resources related to various tasks and applica
 
 ## Project Structure
 The repository is organized into the following directories:
+
     📂 sabit-shaiholla/codeharbor/ - central repository of code and analysis
     ├── 📂 adr/ - store of architectural decision records (ADRs)
     ├── 📂 data-analytics/ - data analytics tasks and applications
