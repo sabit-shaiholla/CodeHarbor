@@ -1,0 +1,87 @@
+variables:
+    MAVEN_OPTS: -Dmaven.repo.local=.m2/repository
+
+image: maven:latest
+
+stages:
+    - setup
+    - build
+    - test
+    - package
+    - release
+
+cache:
+    paths:
+        - .m2/repository
+        - target
+
+setup_job:
+    stage: setup
+    script:
+        - echo "Setting up environment"
+
+build_job:
+    stage: build
+    tags:
+        - docker
+    script:
+        - echo "Maven compile started"
+        - "mvn compile"
+
+test_job:
+    stage: test
+    tags:
+        - docker
+
+    script:
+        - echo "Maven test started"
+        - "mvn test"
+
+package_job:
+    stage: package
+    tags:
+        - docker
+    script:
+        - echo "Maven packaging started"
+        - "mvn package"
+    after_script:
+        - echo "JOB_ID=$CI_JOB_ID" >> job.env
+        - echo "JOB_URL=$CI_JOB_URL" >> job.env
+    artifacts:
+        paths:
+            - target/sorting-app-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+        expire_in: never
+        reports:
+            dotenv: job.env
+
+deploy_job:
+    stage: package
+    tags:
+        - docker
+    script:
+        - echo "Maven deploy started"
+
+release_job:
+    stage: release
+    image:
+        name: registry.gitlab.com/sabit-shaikholla/sorting-app/release-cli-git
+    needs:
+        - job: package_job
+          artifacts: true
+    tags:
+        - docker
+    script:
+        - echo "Creating GitLab Release"
+        - export RELEASE_TAG="v$(date +"%Y%m%d%H%M%S")"
+        - export RELEASE_NAME="Release $RELEASE_TAG"
+        - export ARTIFACT_URL="$JOB_URL/artifacts/download"
+        - echo $ARTIFACT_URL
+        - export ARTIFACT_NAME="sorting-app-1.0.0-SNAPSHOT-jar-with-dependencies.jar"
+        - git config user.email "$GITLAB_USER_EMAIL"
+        - git config user.name "$GITLAB_USER_NAME"
+        - git tag -a $RELEASE_TAG -m "$RELEASE_NAME"
+        - git push -f https://root:$ACCESS_TOKEN@$CI_SERVER_HOST/$CI_PROJECT_PATH.git HEAD:${CI_COMMIT_REF_NAME}
+        - >
+          release-cli create --tag-name "$RELEASE_TAG" --name "$RELEASE_NAME" --ref "master" --description "Automated release created by CI/CD pipeline" --assets-link "{\"name\":\"$ARTIFACT_NAME\",\"url\":\"$ARTIFACT_URL\",\"link_type\":\"other\"}"
+    only:
+        - master
